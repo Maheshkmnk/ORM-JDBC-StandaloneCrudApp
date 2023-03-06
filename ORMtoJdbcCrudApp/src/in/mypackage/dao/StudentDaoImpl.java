@@ -12,22 +12,19 @@ public class StudentDaoImpl implements IStudentDao {
 	Transaction transaction = null;
 	boolean flag = false;
 	Student14 student = new Student14() ;
-
+	Integer id = null;
 	@Override
 	public String addStudent(String sname, Integer sage, String saddress, Integer salary) {
-		System.out.println("addStudent called>>>>");
 		try {
-			System.out.println("before session creation>>>>");
+			System.out.println("addStudent called");
 			session = HibernateUtil.getSession();
-			System.out.println("session created>>>>");
 			if (session != null) {
 				transaction = session.beginTransaction();
-				System.out.println("this called>>>>");
 				student.setSname(sname);
 				student.setSaddress(saddress);
 				student.setSage(sage);
 				student.setSalary(salary);
-				//student.setSid(1);
+				
 				System.out.println(student);
 				session.save(student);
 				flag = true;
@@ -43,7 +40,7 @@ public class StudentDaoImpl implements IStudentDao {
 			} else {
 				transaction.rollback();
 			}
-
+			
 			HibernateUtil.closeSession(session);
 			HibernateUtil.closeSessionFactory();
 		}
@@ -107,14 +104,18 @@ public class StudentDaoImpl implements IStudentDao {
 
 	@Override
 	public String deleteStudent(Integer sid) {
-
+		System.out.println("deleteStudent called..");
 		try {
 			session = HibernateUtil.getSession();
 			if (session != null) {
+				student = session.load(Student14.class, sid);
+				System.out.println("session created..");
 				transaction = session.beginTransaction();
 			}
-			if (transaction != null) {
-				session.delete(sid);
+			if (transaction != null && student != null) {
+				System.out.println("transaction created..");
+				session.delete(student);
+				System.out.println("delete executed..");
 				flag = true;
 			}
 

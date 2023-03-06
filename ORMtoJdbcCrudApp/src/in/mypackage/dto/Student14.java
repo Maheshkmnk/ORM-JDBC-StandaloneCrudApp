@@ -1,14 +1,15 @@
 package in.mypackage.dto;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@DynamicInsert(value = true)
 @DynamicUpdate(value=true)
 public class Student14 {
 	@Id

@@ -17,7 +17,7 @@
 		
 		<property name="hibernate.format_sql">true</property>
 		
-		<property name="hbm2ddl.auto">create</property>
+		<property name="hbm2ddl.auto">update</property>
 		
 		<mapping class="in.mypackage.dto.Student14"/>
 	</session-factory>
